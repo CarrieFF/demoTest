@@ -1,0 +1,17 @@
+- #  test_01 用例
+  detail: 用户名正确，密码正确
+  data:
+    username: "wa0256"
+    password: "22136"
+  resp:
+    code: 20000
+    msg: "成功"
+
+- #  test_02 用例
+  detail: 用户名正确，密码为空
+  data:
+    username: "wa0256"
+    password: " "
+  resp:
+    code: 9999
+    msg: "输入密码错误！"
