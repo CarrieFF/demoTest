@@ -2,9 +2,6 @@ Login: #登录模块
   login: # 登录接口
     path: /account/sLogin # 登录路径
     method: POST
-  loginout: # 退出接口
-    path: "xxxxx"
-    method: POST
 
 Shop: # 商品管理
   query: # 列出商品
@@ -15,4 +12,37 @@ Shop: # 商品管理
     method: POST
   file_upload: # 图片上传
     path: /file
+    method: POST
+
+Food: # 食品管理
+  add: # 添加食品种类
+    path: /shopping/addcategory
+    method: POST
+  query: # 列出店铺食品信息
+    path: /shopping/getcategory/
+    method: GET
+  addFood: # 添加食品
+    path: /shopping/addmyfood
+    method: POST
+  listFood: #列出食品
+    path: /shopping/v2/myFoods
+    method: GET
+  update: # 编辑食品信息
+    path: /shopping/v2/updatemyfood
+    method: POST
+  delete:
+    path: /shopping/v2/fooddel/
+    method: DELETE
+
+Order: # 订单管理模块
+  query: # 订单搜索
+    path: /bos/myOrders
+    method: GET
+
+userInfo: # 用户信息模块
+  update: # 修改密码接口
+    path: /account/updatePwd
+    method: POST
+  loginout: # 退出接口
+    path: /account/logout
     method: POST

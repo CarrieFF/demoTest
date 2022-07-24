@@ -98,6 +98,7 @@ def get_excel_data(sheetName, caseName, *args, runCase=['all'], excelDir=None):
         rowIndex += 1  # 更新行编号，换下一行继续
     return resList
 
+
 """
     excel获取的出来是字符串，测试对结果进行判断时，都要转成字典dict
             1- 业务登录接口需要请求数据是dict格式，但是get_excel_data()返回的是字符串，需要转化 json.loads()

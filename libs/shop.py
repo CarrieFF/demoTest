@@ -6,10 +6,13 @@
 @Time ： 2022-07-15 11:00
 """
 from common.baseAPI import BaseAPI
-from conf.config import NAME_PWD
+from utils.handle_ini import conf
 from libs.login import Login
 from utils.handle_path import testData_path
-import os
+import os, json
+
+NAME_PWD = conf.get_str('test_data', 'NAME_PWD')
+NAME_PWD = json.loads(NAME_PWD)
 
 
 class Shop(BaseAPI):
@@ -29,9 +32,6 @@ class Shop(BaseAPI):
         bodyData['image_path'] = fileInfo
         bodyData['image'] = f'/file/getImaStream?fileName={fileInfo}'
         return super(Shop, self).update(bodyData)  # 调用父类BaseAPI的update方法
-
-    # def add(self):
-    #     pass
 
 
 if __name__ == '__main__':

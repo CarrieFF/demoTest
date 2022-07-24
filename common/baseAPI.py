@@ -12,8 +12,9 @@ import requests
 from utils.handle_yml import get_yaml_data
 import inspect
 import sys
-from conf.config import HOST
+from utils.handle_ini import conf
 from utils.handle_loguru import log
+from configparser import ConfigParser
 
 """
 import inspect
@@ -25,6 +26,7 @@ import inspect
     1- 登录接口不用token
     2- 其他业务接口，需要使用token
 """
+HOST = conf.get_str('test_data', 'HOST')
 
 
 class BaseAPI:
@@ -47,7 +49,9 @@ class BaseAPI:
             resp = requests.request(method=method, url=f'{HOST}{path}' + str(id), data=data, headers=self.headers,
                                     json=json,
                                     params=param, files=files)
-            print(f'request_send发送{methodName}请求，返回值{resp.json()}')
+            # print(f'request_send发送{methodName}请求，返回值{resp.json()}')
+            log.info(f'request_send发送{methodName}请求，请求体{data}/{json}/{param}')
+            log.info(f'request_send发送{methodName}请求，返回值{resp.json()}')
             return resp.json()
         except Exception as error:
             # 打印日志

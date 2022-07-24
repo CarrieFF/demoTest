@@ -6,33 +6,32 @@
 @Time ： 2022-07-20 20:26
 """
 import pymysql
-
-# 1. 创建链接
-dbconnect = pymysql.connect(host='', port='', user='', password='', database='')
-# 2. 获取游标
-cursor = dbconnect.cursor()
-# 3. 执行sql语句
-sql = "select * from user where userName='小明'"
-cursor.execute(sql)
-# 4. 获取返回结果
-result = cursor.fetchall()  # cursor.fetchone() 返回一条结果 all 返回所有结果
-# 5. 关闭游标，关闭链接；
-cursor.close()
-dbconnect.close()
+from utils.handle_ini import conf
+from utils.handle_loguru import log
 
 
 class DBConnection:
-    def __init__(self, host='host', port='port', user='user', password='password', database='database'):
-        self.db = pymysql.connect(host=host, port=port, user=user, password=password, database=database)
-        self.cursor = self.db.cursor()
+    def __init__(self):
+        try:
+            self.conn = pymysql.connect(host=conf.get_str("mysql", "host"),
+                                        user=conf.get_str("mysql", "user"),
+                                        password=conf.get_str("mysql", "password"),
+                                        port=conf.get_int("mysql", "port"),
+                                        db=conf.get_str("mysql", "db"),
+                                        charset="utf8")
+            # 创建游标
+            self.cursor = self.conn.cursor()
+        except pymysql.err.OperationalError as e:
+            log.info(e)
+            raise e
 
     # 查询方法
     def select(self, sql, many=True):
         self.cursor.execute(sql)
         if many:
-            result = self.cursor.fetchall()
+            result = self.cursor.fetchall()  # 返回所有的结果
         else:
-            result = self.cursor.fetchone()
+            result = self.cursor.fetchone()  # 返回查到的第一条数据
 
     def handelSql(self, sql):
         try:

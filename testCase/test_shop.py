@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @Auth ： Carrie
-@File ：test_shop.py
+@File ：test_shop.py 商品模块
 @IDE ：PyCharm
 @Time ： 2022-07-17 22:13
 """
@@ -9,7 +9,6 @@ import allure
 import pytest
 from libs.shop import Shop
 from libs.login import Login
-from conf.config import NAME_PWD
 from common.baseAPI import BaseAPI, ApiAssert
 from utils.handle_excel import get_excel_data
 from utils.handle_path import testData_path, report_path
@@ -33,8 +32,6 @@ import os
         
     方案3：
         1- 模块化剥离 fixture处理
-           
-        
 """
 
 
@@ -43,10 +40,6 @@ import os
 # 测试类标签
 @pytest.mark.shop
 class TestShop:
-    def setup_class(self):
-        _token = Login().login(NAME_PWD, getToken=True)
-        self.shop = Shop(_token)
-
     # 1- 列出店铺
     @pytest.mark.skipif(2 > 1, reason='先不执行')
     @pytest.mark.shop_query  # 测试方法标签
@@ -97,6 +90,6 @@ class TestShop:
 
 
 if __name__ == '__main__':
-    # pytest.main([__file__, '-sv', '-m', 'shop_query', '--alluredir', f'{report_path}', '--clean-alluredir'])
-    pytest.main([__file__, '-sv', '--alluredir', f'{report_path}', '--clean-alluredir'])
-    os.system(f'allure serve {report_path}')
+    pytest.main([__file__, '-sv', '-m', 'shop_update', '--alluredir', f'{report_path}', '--clean-alluredir'])
+    # pytest.main([__file__, '-sv', '--alluredir', f'{report_path}', '--clean-alluredir'])
+    # os.system(f'allure serve {report_path}')
